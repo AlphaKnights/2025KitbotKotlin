@@ -37,7 +37,7 @@ object RobotContainer {
             Constants.OperatorConstants.BUTTON_BOARD_PORT,
         )
 
-    init
+    /**init
     {
         LimelightSubsystem.startPolling()
 
@@ -73,7 +73,7 @@ object RobotContainer {
         )
 
         configureBindings()
-    }
+    }*/
 
     private fun configureBindings() {
         // Drive control
@@ -92,7 +92,7 @@ object RobotContainer {
             )
 
         // Auto Align
-        buttonBoard
+        /**buttonBoard
             .button(
                 Constants.OperatorConstants.ALIGN_LEFT_BUTTON,
             ).whileTrue(
@@ -111,10 +111,10 @@ object RobotContainer {
             )
 
         configureElevatorBindings()
-        configureCoralManipulatorBindings()
-    }
+        configureCoralManipulatorBindings()*/
+    }}
 
-    private fun configureElevatorBindings() {
+    /**private fun configureElevatorBindings() {
         // Manual elevator control
         buttonBoard
             .button(
@@ -188,4 +188,4 @@ object RobotContainer {
     }
 
     fun getAutonomousCommand(): Command = PathPlannerAuto("Expo")
-}
+}*/

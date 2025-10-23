@@ -20,33 +20,29 @@ import frc.robot.Constants.DriveConstants
 import frc.robot.Constants.PathPlannerConstants
 
 object DriveSubsystem : SubsystemBase() {
-    private var frontLeft: TalonSwerveModule =
-        TalonSwerveModule(
+    private var frontLeft: MAXSwerveModule =
+        MAXSwerveModule(
             DriveConstants.FRONT_LEFT_DRIVING_ID,
             DriveConstants.FRONT_LEFT_TURNING_ID,
-            DriveConstants.FRONT_LEFT_CANCODER_ID,
-            DriveConstants.FRONT_LEFT_CHASSIS_ANGULAR_OFFSET,
+            DriveConstants.FRONT_LEFT_CHASSIS_ANGULAR_OFFSET
         )
-    private var frontRight: TalonSwerveModule =
-        TalonSwerveModule(
+    private var frontRight: MAXSwerveModule =
+        MAXSwerveModule(
             DriveConstants.FRONT_RIGHT_DRIVING_ID,
             DriveConstants.FRONT_RIGHT_TURNING_ID,
-            DriveConstants.FRONT_RIGHT_CANCODER_ID,
-            DriveConstants.FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET,
+            DriveConstants.FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET
         )
-    private var rearLeft: TalonSwerveModule =
-        TalonSwerveModule(
+    private var rearLeft: MAXSwerveModule =
+        MAXSwerveModule(
             DriveConstants.REAR_LEFT_DRIVING_ID,
             DriveConstants.REAR_LEFT_TURNING_ID,
-            DriveConstants.REAR_LEFT_CANCODER_ID,
-            DriveConstants.BACK_LEFT_CHASSIS_ANGULAR_OFFSET,
+            DriveConstants.BACK_LEFT_CHASSIS_ANGULAR_OFFSET
         )
-    private var rearRight: TalonSwerveModule =
-        TalonSwerveModule(
+    private var rearRight: MAXSwerveModule =
+        MAXSwerveModule(
             DriveConstants.REAR_RIGHT_DRIVING_ID,
             DriveConstants.REAR_RIGHT_TURNING_ID,
-            DriveConstants.REAR_RIGHT_CANCODER_ID,
-            DriveConstants.BACK_RIGHT_CHASSIS_ANGULAR_OFFSET,
+            DriveConstants.BACK_RIGHT_CHASSIS_ANGULAR_OFFSET
         )
     private var gyro: AHRS = AHRS(AHRS.NavXComType.kMXP_SPI)
     private var odometry: SwerveDriveOdometry
@@ -62,7 +58,7 @@ object DriveSubsystem : SubsystemBase() {
         odometry =
             SwerveDriveOdometry(
                 DriveConstants.DRIVE_KINEMATICS,
-                Rotation2d.fromDegrees(gyro.angle),
+                Rotation2d.fromDegrees(gyro.getAngle()),
                 arrayOf(
                     frontLeft.getPosition(),
                     frontRight.getPosition(),
@@ -103,7 +99,7 @@ object DriveSubsystem : SubsystemBase() {
     override fun periodic() {
         // This method will be called once per scheduler run
         odometry.update(
-            Rotation2d.fromDegrees(gyro.angle),
+            Rotation2d.fromDegrees(gyro.getAngle()),
             arrayOf(
                 frontLeft.getPosition(),
                 frontRight.getPosition(),
@@ -113,34 +109,7 @@ object DriveSubsystem : SubsystemBase() {
         )
     }
 
-    fun getPose(): Pose2d = odometry.poseMeters
 
-    fun resetPose(pose: Pose2d) {
-        resetOdometry(pose)
-    }
-
-    // IDE bug, the detected and actual signatures are different
-    @Suppress("TYPE_MISMATCH", "TOO_MANY_ARGUMENTS")
-    fun getCurrentSpeeds(): ChassisSpeeds =
-        DriveConstants.DRIVE_KINEMATICS.toChassisSpeeds(
-            frontLeft.getState(),
-            frontRight.getState(),
-            rearLeft.getState(),
-            rearRight.getState(),
-        )
-
-    private fun resetOdometry(pose: Pose2d) {
-        odometry.resetPosition(
-            Rotation2d.fromDegrees(gyro.angle),
-            arrayOf(
-                frontLeft.getPosition(),
-                frontRight.getPosition(),
-                rearLeft.getPosition(),
-                rearRight.getPosition(),
-            ),
-            pose,
-        )
-    }
 
     fun shouldFlipPath(): Boolean =
         (DriverStation.getAlliance() ?: DriverStation.Alliance.Red) == DriverStation.Alliance.Red
@@ -161,7 +130,7 @@ object DriveSubsystem : SubsystemBase() {
                 DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
                     ChassisSpeeds.fromFieldRelativeSpeeds(
                         speeds,
-                        Rotation2d.fromDegrees(gyro.angle),
+                        Rotation2d.fromDegrees(gyro.getAngle()),
                     ),
                 )
         }

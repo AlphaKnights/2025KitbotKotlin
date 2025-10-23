@@ -20,7 +20,7 @@ import edu.wpi.first.math.util.Units
 object Constants {
     object OperatorConstants {
         const val DRIVER_CONTROLLER_PORT = 1
-        const val DRIVE_DEADBAND = 0.4
+        const val DRIVE_DEADBAND = 0.1
 
         const val RESET_HEADING_BUTTON = 11
 
@@ -129,22 +129,18 @@ object Constants {
     }
 
     object ModuleConstants {
-        const val DRIVE_RATIO = 17.326202353
+        const val kDrivingMotorPinionTeeth: Int = 14
 
-        const val DRIVING_P = 0.8
-        const val DRIVING_I = 0.0
-        const val DRIVING_D = 0.0
-        const val DRIVING_FF = 1.0
-        const val DRIVING_V = 0.3
-        const val DRIVING_A = 1.5
+        // Calculations required for driving motor conversion factors and feed forward
+        val kDrivingMotorFreeSpeedRps: Double = 5676.0 / 60
+        const val kWheelDiameterMeters: Double = 0.0762
+        const val kWheelCircumferenceMeters: Double = kWheelDiameterMeters * Math.PI
+        // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
+        // teeth on the bevel pinion
+        const val kDrivingMotorReduction: Double = (45.0 * 22) / (kDrivingMotorPinionTeeth * 15)
 
-        const val TURNING_P = 40.0
-        const val TURNING_I = 0.0
-        const val TURNING_D = 0.0
-        const val TURNING_FF = 0.0
-
-        const val DRIVING_MOTOR_CURRENT_LIMIT = 40.0
-        const val TURNING_MOTOR_CURRENT_LIMIT = 40.0
+        val kDriveWheelFreeSpeedRps: Double = ((kDrivingMotorFreeSpeedRps * kWheelCircumferenceMeters)
+                / kDrivingMotorReduction)
     }
 
     object ElevatorConstants {
