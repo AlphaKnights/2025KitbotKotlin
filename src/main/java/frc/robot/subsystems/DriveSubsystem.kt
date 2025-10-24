@@ -68,32 +68,32 @@ object DriveSubsystem : SubsystemBase() {
             )
 
         // PathPlanner auto builder
-        AutoBuilder.configure(
-            this::getPose,
-            this::resetPose,
-            this::getCurrentSpeeds,
-            { speeds: ChassisSpeeds, _: DriveFeedforwards ->
-                drive(speeds, fieldRelative = false)
-            },
-            PPHolonomicDriveController(
-                // Translation PID
-                PIDConstants(
-                    PathPlannerConstants.TRANSLATION_P,
-                    PathPlannerConstants.TRANSLATION_I,
-                    PathPlannerConstants.TRANSLATION_D,
-                ),
-                // Rotation PID
-                PIDConstants(
-                    PathPlannerConstants.ROTATION_P,
-                    PathPlannerConstants.ROTATION_I,
-                    PathPlannerConstants.ROTATION_D,
-                ),
-                1.0,
-            ),
-            config,
-            this::shouldFlipPath,
-            this,
-        )
+//        AutoBuilder.configure(
+//            this::getPose,
+//            this::resetPose,
+//            this::getCurrentSpeeds,
+//            { speeds: ChassisSpeeds, _: DriveFeedforwards ->
+//                drive(speeds, fieldRelative = false)
+//            },
+//            PPHolonomicDriveController(
+//                // Translation PID
+//                PIDConstants(
+//                    PathPlannerConstants.TRANSLATION_P,
+//                    PathPlannerConstants.TRANSLATION_I,
+//                    PathPlannerConstants.TRANSLATION_D,
+//                ),
+//                // Rotation PID
+//                PIDConstants(
+//                    PathPlannerConstants.ROTATION_P,
+//                    PathPlannerConstants.ROTATION_I,
+//                    PathPlannerConstants.ROTATION_D,
+//                ),
+//                1.0,
+//            ),
+//            config,
+//            this::shouldFlipPath,
+//            this,
+//        )
     }
 
     override fun periodic() {

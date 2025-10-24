@@ -11,6 +11,8 @@ import com.revrobotics.spark.SparkBase.PersistMode
 import com.revrobotics.spark.SparkClosedLoopController
 import com.revrobotics.spark.SparkLowLevel
 import com.revrobotics.spark.SparkMax
+import com.revrobotics.spark.SparkFlex
+
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode
 import com.revrobotics.spark.config.SparkMaxConfig
@@ -22,7 +24,7 @@ import kotlin.math.PI
 
 
 class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset: Rotation2d) {
-    private val m_drivingSpark = SparkMax(drivingCANId, SparkLowLevel.MotorType.kBrushless)
+    private val m_drivingSpark = SparkFlex(drivingCANId, SparkLowLevel.MotorType.kBrushless)
     private val m_turningSpark = SparkMax(turningCANId, SparkLowLevel.MotorType.kBrushless)
 
     private val m_drivingEncoder: RelativeEncoder = m_drivingSpark.encoder
@@ -100,32 +102,33 @@ class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset
         m_drivingEncoder.setPosition(0.0)
     }
 
-    val state: SwerveModuleState
+    fun getState(): SwerveModuleState {
         /**
          * Returns the current state of the module.
          *
          * @return The current state of the module.
          */
-        get() =// Apply chassis angular offset to the encoder position to get the position
-            // relative to the chassis.
-            SwerveModuleState(
+        // Apply chassis angular offset to the encoder position to get the position
+                // relative to the chassis.
+         return SwerveModuleState(
                 m_drivingEncoder.velocity,
                 Rotation2d(m_turningEncoder.position - m_chassisAngularOffset)
             )
+    }
 
-    val position: SwerveModulePosition
+    fun getPosition(): SwerveModulePosition {
         /**
          * Returns the current position of the module.
          *
          * @return The current position of the module.
          */
-        get() =// Apply chassis angular offset to the encoder position to get the position
+            // Apply chassis angular offset to the encoder position to get the position
             // relative to the chassis.
-            SwerveModulePosition(
+        return SwerveModulePosition(
                 m_drivingEncoder.position,
                 Rotation2d(m_turningEncoder.position - m_chassisAngularOffset)
             )
-
+    }
     /**
      * Sets the desired state for the module.
      *
