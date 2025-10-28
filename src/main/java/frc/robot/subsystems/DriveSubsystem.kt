@@ -3,6 +3,7 @@
  */
 package frc.robot.subsystems
 
+import com.ctre.phoenix6.hardware.Pigeon2
 import com.pathplanner.lib.auto.AutoBuilder
 import com.pathplanner.lib.config.PIDConstants
 import com.pathplanner.lib.config.RobotConfig
@@ -44,6 +45,7 @@ object DriveSubsystem : SubsystemBase() {
             DriveConstants.REAR_RIGHT_TURNING_ID,
             DriveConstants.BACK_RIGHT_CHASSIS_ANGULAR_OFFSET
         )
+    //private var gyro: Pigeon2 = Pigeon2(3)
     private var gyro: AHRS = AHRS(AHRS.NavXComType.kMXP_SPI)
     private var odometry: SwerveDriveOdometry
 

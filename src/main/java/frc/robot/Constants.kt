@@ -122,9 +122,9 @@ object Constants {
         const val FRONT_RIGHT_TURNING_ID = 1
         const val REAR_RIGHT_TURNING_ID = 12
 
-       // const val FRONT_LEFT_CANCODER_ID = 3
+        //const val FRONT_LEFT_CANCODER_ID = 3
         //const val REAR_LEFT_CANCODER_ID = 4
-       // const val FRONT_RIGHT_CANCODER_ID = 2
+        //const val FRONT_RIGHT_CANCODER_ID = 2
         //const val REAR_RIGHT_CANCODER_ID = 1
     }
 
