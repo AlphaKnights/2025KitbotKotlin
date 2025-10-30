@@ -16,6 +16,7 @@ import com.revrobotics.spark.SparkFlex
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode
 import com.revrobotics.spark.config.SparkMaxConfig
+import com.revrobotics.spark.config.SparkFlexConfig
 import edu.wpi.first.math.geometry.Rotation2d
 import edu.wpi.first.math.kinematics.SwerveModulePosition
 import edu.wpi.first.math.kinematics.SwerveModuleState
@@ -30,14 +31,13 @@ class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset
     private val m_drivingEncoder: RelativeEncoder = m_drivingSpark.encoder
     private val m_turningEncoder: AbsoluteEncoder = m_turningSpark.absoluteEncoder
 
-    private val m_drivingClosedLoopController: SparkClosedLoopController = m_drivingSpark.closedLoopController
-    private val m_turningClosedLoopController: SparkClosedLoopController = m_turningSpark.closedLoopController
+    private val m_drivingClosedLoopController: SparkClosedLoopController = m_drivingSpark.getClosedLoopController()
+    private val m_turningClosedLoopController: SparkClosedLoopController = m_turningSpark.getClosedLoopController()
 
     private var m_chassisAngularOffset = 0.0
     private var m_desiredState = SwerveModuleState(0.0, Rotation2d())
 
-
-    private val drivingConfig: SparkMaxConfig = SparkMaxConfig()
+    private val drivingConfig: SparkFlexConfig = SparkFlexConfig()
 
     private val turningConfig: SparkMaxConfig = SparkMaxConfig()
 

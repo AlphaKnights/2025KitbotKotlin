@@ -37,9 +37,9 @@ object RobotContainer {
             Constants.OperatorConstants.BUTTON_BOARD_PORT,
         )
 
-    /**init
+    init
     {
-        LimelightSubsystem.startPolling()
+        /*LimelightSubsystem.startPolling()
 
         NamedCommands.registerCommands(
             mapOf(
@@ -71,9 +71,9 @@ object RobotContainer {
                 "Delivery" to LaunchCommand(),
             ),
         )
-
+        */
         configureBindings()
-    }*/
+    }
 
     private fun configureBindings() {
         // Drive control

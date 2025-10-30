@@ -19,10 +19,10 @@ class DriveCommand(
 
     override fun execute() {
         super.execute()
-
+        print("run" + x())
         DriveSubsystem.drive(
             ChassisSpeeds(
-                x() *
+                0.1 *//x() *
                     Constants.DriveConstants.MAX_METERS_PER_SECOND,
                 y() *
                     Constants.DriveConstants.MAX_METERS_PER_SECOND,
@@ -34,6 +34,7 @@ class DriveCommand(
     }
 
     override fun end(interrupted: Boolean) {
+        print("end")
         DriveSubsystem.drive(
             ChassisSpeeds(
                 0.0,
