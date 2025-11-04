@@ -22,7 +22,7 @@ class DriveCommand(
         print("run" + x())
         DriveSubsystem.drive(
             ChassisSpeeds(
-                0.1 *//x() *
+                x() *
                     Constants.DriveConstants.MAX_METERS_PER_SECOND,
                 y() *
                     Constants.DriveConstants.MAX_METERS_PER_SECOND,
