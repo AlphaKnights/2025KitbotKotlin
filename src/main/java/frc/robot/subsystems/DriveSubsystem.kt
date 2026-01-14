@@ -45,8 +45,8 @@ object DriveSubsystem : SubsystemBase() {
             DriveConstants.REAR_RIGHT_TURNING_ID,
             DriveConstants.BACK_RIGHT_CHASSIS_ANGULAR_OFFSET
         )
-    //private var gyro: Pigeon2 = Pigeon2(3)
-    private var gyro: AHRS = AHRS(AHRS.NavXComType.kMXP_SPI)
+    private var gyro: Pigeon2 = Pigeon2(9)
+//    private var gyro: AHRS = AHRS(AHRS.NavXComType.kMXP_SPI)
     private var odometry: SwerveDriveOdometry
 
     private val config: RobotConfig =
@@ -54,13 +54,13 @@ object DriveSubsystem : SubsystemBase() {
             .fromGUISettings()
 
     init {
-        gyro.enableBoardlevelYawReset(false)
+//        gyro.enableBoardlevelYawReset(false)
         gyro.reset()
 
         odometry =
             SwerveDriveOdometry(
                 DriveConstants.DRIVE_KINEMATICS,
-                Rotation2d.fromDegrees(gyro.getAngle()),
+                gyro.getRotation2d(),
                 arrayOf(
                     frontLeft.getPosition(),
                     frontRight.getPosition(),
@@ -101,7 +101,7 @@ object DriveSubsystem : SubsystemBase() {
     override fun periodic() {
         // This method will be called once per scheduler run
         odometry.update(
-            Rotation2d.fromDegrees(gyro.getAngle()),
+            gyro.getRotation2d(),
             arrayOf(
                 frontLeft.getPosition(),
                 frontRight.getPosition(),
@@ -109,6 +109,7 @@ object DriveSubsystem : SubsystemBase() {
                 rearRight.getPosition(),
             ),
         )
+        println(gyro.getRotation2d());
     }
 
 
@@ -132,7 +133,7 @@ object DriveSubsystem : SubsystemBase() {
                 DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
                     ChassisSpeeds.fromFieldRelativeSpeeds(
                         speeds,
-                        Rotation2d.fromDegrees(gyro.getAngle()),
+                        Rotation2d.fromDegrees(gyro.getYaw().getValueAsDouble()),
                     ),
                 )
         }
