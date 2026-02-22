@@ -97,7 +97,7 @@ class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset
             PersistMode.kPersistParameters
         )
 
-        m_chassisAngularOffset = chassisAngularOffset.getDegrees()
+        m_chassisAngularOffset = chassisAngularOffset.getRadians()
         m_desiredState.angle = Rotation2d(m_turningEncoder.position)
         m_drivingEncoder.setPosition(0.0)
     }
