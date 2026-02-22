@@ -20,7 +20,7 @@ import edu.wpi.first.math.util.Units
 object Constants {
     object OperatorConstants {
         const val DRIVER_CONTROLLER_PORT = 1
-        const val DRIVE_DEADBAND = 0.1
+        const val DRIVE_DEADBAND = 0.2
 
         const val RESET_HEADING_BUTTON = 11
 
