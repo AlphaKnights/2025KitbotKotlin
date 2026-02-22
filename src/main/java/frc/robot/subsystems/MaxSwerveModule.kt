@@ -43,7 +43,7 @@ class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset
 
     // Use module constants to calculate conversion factors and feed forward gain.
     private val drivingFactor = ModuleConstants.kWheelDiameterMeters * PI / ModuleConstants.kDrivingMotorReduction;
-    private val turningFactor = 2 * PI;
+    private val turningFactor = 2 * PI
     private val drivingVelocityFeedForward = 1 / ModuleConstants.kDriveWheelFreeSpeedRps
     /**
      * Constructs a MAXSwerveModule and configures the driving and turning motor,
@@ -55,7 +55,7 @@ class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset
         // Apply the respective configurations to the SPARKS. Reset parameters before
         // applying the configuration to bring the SPARK to a known good state. Persist
         // the settings to the SPARK to avoid losing them on a power cycle.
-        drivingConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(50);
+        drivingConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(50); // KBRAKE IDLE
         drivingConfig.encoder
             .positionConversionFactor(drivingFactor) // meters
             .velocityConversionFactor(drivingFactor / 60.0); // meters per second
@@ -67,7 +67,7 @@ class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset
             .outputRange(-1.0, 1.0);
 
         turningConfig
-            .idleMode(IdleMode.kBrake)
+            .idleMode(IdleMode.kBrake) // kBrake
             .smartCurrentLimit(20);
         turningConfig.absoluteEncoder
             // Invert the turning encoder, since the output shaft rotates in the opposite

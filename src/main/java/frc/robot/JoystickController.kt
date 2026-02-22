@@ -15,27 +15,27 @@ class JoystickController :
     ) {
     fun x(): Double =
         (
-            -applyDeadband(
-                getRawAxis(1),
-                Constants.OperatorConstants.DRIVE_DEADBAND,
-            ) * (-getRawAxis(3) + 1) / 2
-        )
+                -applyDeadband(
+                    getRawAxis(1),
+                    Constants.OperatorConstants.DRIVE_DEADBAND,
+                ) * (-getRawAxis(3) + 1) / 2
+                )
 
     fun y(): Double =
         (
-            -applyDeadband(
-                getRawAxis(0),
-                Constants.OperatorConstants.DRIVE_DEADBAND,
-            ) * (-getRawAxis(3) + 1) / 2
-        )
+                -applyDeadband(
+                    getRawAxis(0),
+                    Constants.OperatorConstants.DRIVE_DEADBAND,
+                ) * (-getRawAxis(3) + 1) / 2
+                )
 
     fun rot(): Double =
         (
-            -applyDeadband(
-                getRawAxis(2),
-                Constants.OperatorConstants.DRIVE_DEADBAND,
-            ) * (-getRawAxis(3) + 1) / 2
-        )
+                -applyDeadband(
+                    getRawAxis(2),
+                    Constants.OperatorConstants.DRIVE_DEADBAND,
+                ) * (-getRawAxis(3) + 1) / 2
+                )
 
     fun heading(): Trigger =
         JoystickButton(
