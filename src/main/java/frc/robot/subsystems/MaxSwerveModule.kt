@@ -5,15 +5,11 @@ package frc.robot.subsystems
 
 import com.revrobotics.AbsoluteEncoder
 import com.revrobotics.RelativeEncoder
-import com.revrobotics.spark.SparkBase
 import com.revrobotics.spark.SparkBase.ControlType
-import com.revrobotics.spark.SparkBase.PersistMode
-import com.revrobotics.spark.SparkClosedLoopController
-import com.revrobotics.spark.SparkLowLevel
-import com.revrobotics.spark.SparkMax
-import com.revrobotics.spark.SparkFlex
+import com.revrobotics.PersistMode
+import com.revrobotics.ResetMode
+import com.revrobotics.spark.*
 
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode
 import com.revrobotics.spark.config.SparkMaxConfig
 import com.revrobotics.spark.config.SparkFlexConfig
@@ -63,8 +59,8 @@ class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset
             .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
             // These are example gains you may need to them for your own robot!
             .pid(0.04, 0.0, 0.0)
-            .velocityFF(drivingVelocityFeedForward)
-            .outputRange(-1.0, 1.0);
+            .outputRange(-1.0, 1.0)
+            .feedForward.kV(drivingVelocityFeedForward)
 
         turningConfig
             .idleMode(IdleMode.kBrake) // kBrake
@@ -89,11 +85,11 @@ class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset
 
 
         m_drivingSpark.configure(
-            drivingConfig, SparkBase.ResetMode.kResetSafeParameters,
+            drivingConfig, ResetMode.kResetSafeParameters,
             PersistMode.kPersistParameters
         )
         m_turningSpark.configure(
-            turningConfig, SparkBase.ResetMode.kResetSafeParameters,
+            turningConfig, ResetMode.kResetSafeParameters,
             PersistMode.kPersistParameters
         )
 
@@ -144,8 +140,8 @@ class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset
         correctedDesiredState.optimize(Rotation2d(m_turningEncoder.position))
 
         // Command driving and turning SPARKS towards their respective setpoints.
-        m_drivingClosedLoopController.setReference(correctedDesiredState.speedMetersPerSecond, ControlType.kVelocity)
-        m_turningClosedLoopController.setReference(correctedDesiredState.angle.radians, ControlType.kPosition)
+        m_drivingClosedLoopController.setSetpoint(correctedDesiredState.speedMetersPerSecond, ControlType.kVelocity)
+        m_turningClosedLoopController.setSetpoint(correctedDesiredState.angle.radians, ControlType.kPosition)
 
         m_desiredState = desiredState
     }

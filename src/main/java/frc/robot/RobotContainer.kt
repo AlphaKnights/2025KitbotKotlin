@@ -13,9 +13,6 @@ import frc.robot.commands.autoalign.AutoAlignAutoCommand
 import frc.robot.commands.autoalign.AutoAlignManualCommand
 import frc.robot.commands.coralmanipulator.IntakeCommand
 import frc.robot.commands.coralmanipulator.LaunchCommand
-import frc.robot.commands.elevator.ElevatorManualCommand
-import frc.robot.commands.elevator.ElevatorPosAutoCommand
-import frc.robot.commands.elevator.ElevatorPosCommand
 import frc.robot.subsystems.DriveSubsystem
 import frc.robot.subsystems.LimelightSubsystem
 
