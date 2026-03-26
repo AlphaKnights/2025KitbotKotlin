@@ -42,4 +42,18 @@ class JoystickController :
             this,
             Constants.OperatorConstants.RESET_HEADING_BUTTON,
         )
+
+    fun alignL(): Trigger =
+        JoystickButton(
+            this,
+            Constants.OperatorConstants.ALIGN_LEFT_BUTTON,
+        )
+
+    fun alignR(): Trigger =
+        JoystickButton(
+            this,
+            Constants.OperatorConstants.ALIGN_RIGHT_BUTTON,
+        )
+
+
 }

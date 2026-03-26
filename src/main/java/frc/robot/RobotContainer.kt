@@ -79,6 +79,7 @@ object RobotContainer {
                 x = { joystickController.x() },
                 y = { joystickController.y() },
                 rot = { joystickController.rot() },
+                autoAngle = { joystickController.getRawButton(12)}
             )
 
         // Reset heading
@@ -89,26 +90,22 @@ object RobotContainer {
             )
 
         // Auto Align
-        /**buttonBoard
-            .button(
-                Constants.OperatorConstants.ALIGN_LEFT_BUTTON,
-            ).whileTrue(
+        joystickController
+            .alignL().whileTrue(
                 AutoAlignManualCommand(
                     Constants.AlignDirection.LEFT,
                 ),
             )
 
-        buttonBoard
-            .button(
-                Constants.OperatorConstants.ALIGN_RIGHT_BUTTON,
-            ).whileTrue(
+        joystickController
+            .alignR().whileTrue(
                 AutoAlignManualCommand(
                     Constants.AlignDirection.RIGHT,
                 ),
             )
 
-        configureElevatorBindings()
-        configureCoralManipulatorBindings()*/
+//        configureElevatorBindings()
+//        configureCoralManipulatorBindings()
     }}
 
     /**private fun configureElevatorBindings() {

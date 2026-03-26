@@ -37,13 +37,13 @@ class XBoxController : XboxController(Constants.OperatorConstants.DRIVER_CONTROL
 
 
     fun heading() : Trigger {
-        return Trigger { getYButton() }
+        return Trigger { yButton }
     }
     fun alignL() : Trigger {
-        return Trigger { getXButton()}
+        return Trigger { xButton }
     }
     fun alignR() : Trigger {
-        return Trigger { getBButton()}
+        return Trigger { bButton }
     }
 
 

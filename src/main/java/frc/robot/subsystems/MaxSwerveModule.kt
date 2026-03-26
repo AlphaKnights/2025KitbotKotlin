@@ -38,7 +38,7 @@ class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset
     private val turningConfig: SparkMaxConfig = SparkMaxConfig()
 
     // Use module constants to calculate conversion factors and feed forward gain.
-    private val drivingFactor = ModuleConstants.kWheelDiameterMeters * PI / ModuleConstants.kDrivingMotorReduction;
+    private val drivingFactor = ModuleConstants.kWheelDiameterMeters * PI / ModuleConstants.kDrivingMotorReduction
     private val turningFactor = 2 * PI
     private val drivingVelocityFeedForward = 1 / ModuleConstants.kDriveWheelFreeSpeedRps
     /**
@@ -51,10 +51,10 @@ class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset
         // Apply the respective configurations to the SPARKS. Reset parameters before
         // applying the configuration to bring the SPARK to a known good state. Persist
         // the settings to the SPARK to avoid losing them on a power cycle.
-        drivingConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(50); // KBRAKE IDLE
+        drivingConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(50) // KBRAKE IDLE
         drivingConfig.encoder
             .positionConversionFactor(drivingFactor) // meters
-            .velocityConversionFactor(drivingFactor / 60.0); // meters per second
+            .velocityConversionFactor(drivingFactor / 60.0) // meters per second
         drivingConfig.closedLoop
             .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
             // These are example gains you may need to them for your own robot!
@@ -64,13 +64,13 @@ class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset
 
         turningConfig
             .idleMode(IdleMode.kBrake) // kBrake
-            .smartCurrentLimit(20);
+            .smartCurrentLimit(20)
         turningConfig.absoluteEncoder
             // Invert the turning encoder, since the output shaft rotates in the opposite
             // direction of the steering motor in the MAXSwerve Module.
             .inverted(true)
             .positionConversionFactor(turningFactor) // radians
-            .velocityConversionFactor(turningFactor / 60.0); // radians per second
+            .velocityConversionFactor(turningFactor / 60.0) // radians per second
         turningConfig.closedLoop
             .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
             // These are example gains you may need to them for your own robot!
@@ -81,7 +81,7 @@ class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset
             // to 10 degrees will go through 0 rather than the other direction which is a
             // longer route.
             .positionWrappingEnabled(true)
-            .positionWrappingInputRange(0.0, turningFactor);
+            .positionWrappingInputRange(0.0, turningFactor)
 
 
         m_drivingSpark.configure(
@@ -93,7 +93,7 @@ class MAXSwerveModule(drivingCANId: Int, turningCANId: Int, chassisAngularOffset
             PersistMode.kPersistParameters
         )
 
-        m_chassisAngularOffset = chassisAngularOffset.getRadians()
+        m_chassisAngularOffset = chassisAngularOffset.radians
         m_desiredState.angle = Rotation2d(m_turningEncoder.position)
         m_drivingEncoder.setPosition(0.0)
     }
