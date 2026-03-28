@@ -55,5 +55,10 @@ class JoystickController :
             Constants.OperatorConstants.ALIGN_RIGHT_BUTTON,
         )
 
+    fun north(): Trigger =
+        JoystickButton(
+            this,
+            Constants.OperatorConstants.NORTH_BUTTON
+        )
 
 }

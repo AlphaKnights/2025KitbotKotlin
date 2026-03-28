@@ -83,34 +83,34 @@ object DriveSubsystem : SubsystemBase() {
                 )
             )
 
-         // PathPlanner auto builder
-//        AutoBuilder.configure(
-//            this::getPose,
-//            this::resetPose,
-//            this::getCurrentSpeeds,
-//            { speeds: ChassisSpeeds, _: DriveFeedforwards ->
-//                drive(speeds, fieldRelative = false)
-//            },
-//
-//            PPHolonomicDriveController(
-//                // Translation PID
-//                PIDConstants(
-//                    PathPlannerConstants.TRANSLATION_P,
-//                    PathPlannerConstants.TRANSLATION_I,
-//                    PathPlannerConstants.TRANSLATION_D,
-//                ),
-//                // Rotation PID
-//                PIDConstants(
-//                    PathPlannerConstants.ROTATION_P,
-//                    PathPlannerConstants.ROTATION_I,
-//                    PathPlannerConstants.ROTATION_D,
-//                ),
-//                1.0,
-//            ),
-//            config,
-//            this::shouldFlipPath,
-//            this
-//        )
+          //PathPlanner auto builder
+        AutoBuilder.configure(
+            this::getPose,
+            this::resetPose,
+            this::getCurrentSpeeds,
+            { speeds: ChassisSpeeds, _: DriveFeedforwards ->
+                drive(speeds, fieldRelative = false)
+            },
+
+            PPHolonomicDriveController(
+                // Translation PID
+                PIDConstants(
+                    PathPlannerConstants.TRANSLATION_P,
+                    PathPlannerConstants.TRANSLATION_I,
+                    PathPlannerConstants.TRANSLATION_D,
+                ),
+                // Rotation PID
+                PIDConstants(
+                    PathPlannerConstants.ROTATION_P,
+                    PathPlannerConstants.ROTATION_I,
+                    PathPlannerConstants.ROTATION_D,
+                ),
+                1.0,
+            ),
+            config,
+            this::shouldFlipPath,
+            this
+        )
       }
 
 
@@ -125,9 +125,27 @@ object DriveSubsystem : SubsystemBase() {
                 rearRight.getPosition(),
             ),
         )
-        println(gyro.rotation2d)
+        //println(gyro.rotation2d)
+        //println(getPose())
     }
 
+
+    fun resetPose(pose: Pose2d) {
+        resetOdometry(pose)
+    }
+
+    fun resetOdometry(pose: Pose2d) {
+        odometry.resetPosition(
+            Rotation2d.fromDegrees(gyro.yaw.toDouble()), //gyro.getRotation2d(),
+            arrayOf(
+                frontLeft.getPosition(),
+                frontRight.getPosition(),
+                rearLeft.getPosition(),
+                rearRight.getPosition(),
+            ),
+            pose,
+        )
+    }
 
 
     fun shouldFlipPath(): Boolean =

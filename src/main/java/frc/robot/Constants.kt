@@ -38,12 +38,14 @@ object Constants {
         const val ELEVATOR_LVL_4_BUTTON = 4
 
         const val INTAKE_BUTTON = 6
-        const val DELIVERY_BUTTON = 9
+        const val DELIVERY_BUTTON = 8
+        const val NORTH_BUTTON = 9
+        const val AIMING_BUTTON = 1
     }
 
     object DriveConstants {
-        const val MAX_METERS_PER_SECOND = 15
-        const val MAX_ANGULAR_SPEED = 20
+        const val MAX_METERS_PER_SECOND = 2
+        const val MAX_ANGULAR_SPEED = 2
 
         private val TRACK_WIDTH = Units.inchesToMeters(27.0)
         private val WHEEL_BASE = Units.inchesToMeters(27.0)
@@ -274,10 +276,10 @@ object Constants {
         // Hub field positions (meters). Set to real field measurements before competition.
         // Red hub: robot approaches from y < RED_HUB_Y
         // Blue hub: robot approaches from y > BLUE_HUB_Y
-        const val RED_HUB_X = 5.0
-        const val RED_HUB_Y = 5.0
-        const val BLUE_HUB_X = 1.0
-        const val BLUE_HUB_Y = 1.0 // placeholder — team must tune
+        const val RED_HUB_X = 0.5
+        const val RED_HUB_Y = 0.5
+        const val BLUE_HUB_X = 0.0
+        const val BLUE_HUB_Y = 0.0 // placeholder — team must tune
 
         // Valid shooting-arc sector, in degrees, measured from hub center.
         //   0° = +X on field,  90° = +Y,  180° = -X,  270° = -Y (toward driver station)
@@ -295,8 +297,8 @@ object Constants {
         const val SLOW_DISTANCE = 1.0
         const val MIN_SPEED = 0.2
 
-        const val DIST_DEADZONE = 0.1
-        const val ANGLE_DEADZONE = 1.0
+        const val DIST_DEADZONE = 0.1 //m
+        const val ANGLE_DEADZONE = 1.0 //degrees
     }
 
 }
