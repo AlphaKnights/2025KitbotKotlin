@@ -9,12 +9,14 @@ import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick
 import frc.robot.commands.DriveCommand
 import frc.robot.commands.NorthCommand
+import frc.robot.commands.PathfindToPoseCommand
 import frc.robot.commands.ResetHeadingCommand
 import frc.robot.commands.autoalign.AutoAlignAutoCommand
 import frc.robot.commands.autoalign.AutoAlignManualCommand
 import frc.robot.commands.coralmanipulator.IntakeCommand
 import frc.robot.commands.coralmanipulator.LaunchCommand
 import frc.robot.subsystems.DriveSubsystem
+import frc.robot.subsystems.DriveToArcPoseGenerator
 import frc.robot.subsystems.LimelightSubsystem
 
 /**
@@ -110,6 +112,11 @@ object RobotContainer {
                     x = { joystickController.x() },
                     y = { joystickController.y() },
                 )
+            )
+
+        joystickController
+            .driveToArc().whileTrue(
+                PathfindToPoseCommand(DriveToArcPoseGenerator.generatePath())
             )
 
 //        configureElevatorBindings()

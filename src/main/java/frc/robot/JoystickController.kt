@@ -61,4 +61,10 @@ class JoystickController :
             Constants.OperatorConstants.NORTH_BUTTON
         )
 
+    fun driveToArc(): Trigger =
+        JoystickButton(
+            this,
+            Constants.OperatorConstants.ARC_BUTTON
+        )
+
 }

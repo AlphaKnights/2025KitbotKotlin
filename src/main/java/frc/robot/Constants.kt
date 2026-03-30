@@ -10,6 +10,7 @@ package frc.robot
  * `const` definitions. Other constant types should use `val` definitions.
  */
 
+import com.pathplanner.lib.path.PathConstraints
 import com.revrobotics.spark.config.SparkBaseConfig
 import edu.wpi.first.math.geometry.Rotation2d
 import edu.wpi.first.math.geometry.Translation2d
@@ -41,11 +42,20 @@ object Constants {
         const val DELIVERY_BUTTON = 8
         const val NORTH_BUTTON = 9
         const val AIMING_BUTTON = 1
+        const val ARC_BUTTON = 8
     }
 
     object DriveConstants {
-        const val MAX_METERS_PER_SECOND = 2
-        const val MAX_ANGULAR_SPEED = 2
+        const val MAX_METERS_PER_SECOND = 2.0
+        const val MAX_ANGULAR_SPEED = 10.0
+
+        val PATH_CONSTRAINTS =
+            PathConstraints(
+                MAX_METERS_PER_SECOND,
+                10.0,
+                MAX_ANGULAR_SPEED,
+                4 * Math.PI,
+            )
 
         private val TRACK_WIDTH = Units.inchesToMeters(27.0)
         private val WHEEL_BASE = Units.inchesToMeters(27.0)
@@ -96,7 +106,7 @@ object Constants {
         val FRONT_LEFT_CHASSIS_ANGULAR_OFFSET: Rotation2d = // CAN ID 1
             Rotation2d
                 .fromDegrees(
-                    0.0,
+                    180.0,
                 )
         val FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET: Rotation2d = // CAN ID 12
             Rotation2d
@@ -106,12 +116,12 @@ object Constants {
         val BACK_LEFT_CHASSIS_ANGULAR_OFFSET: Rotation2d = // CAN ID 14
             Rotation2d
                 .fromDegrees(
-                    180.0,
+                    0.0,
                 )
         val BACK_RIGHT_CHASSIS_ANGULAR_OFFSET: Rotation2d = // CAN ID 22
             Rotation2d
                 .fromDegrees(
-                    180.0,
+                    0.0,
                 )
 
         const val FRONT_LEFT_DRIVING_ID = 2
@@ -269,7 +279,7 @@ object Constants {
     }
 
     object AimingConstants {
-        const val DISTANCE = 3.0
+        const val DISTANCE = 0.5
         const val GOOD_DISTANCE_TOLERANCE = 0.5
         const val MIDDLING_DISTANCE_TOLERANCE = 1.0
 
@@ -278,7 +288,7 @@ object Constants {
         // Blue hub: robot approaches from y > BLUE_HUB_Y
         const val RED_HUB_X = 0.5
         const val RED_HUB_Y = 0.5
-        const val BLUE_HUB_X = 0.0
+        const val BLUE_HUB_X = 1.0
         const val BLUE_HUB_Y = 0.0 // placeholder — team must tune
 
         // Valid shooting-arc sector, in degrees, measured from hub center.

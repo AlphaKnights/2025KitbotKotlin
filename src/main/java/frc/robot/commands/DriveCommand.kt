@@ -36,15 +36,32 @@ class DriveCommand(
             )
         } else {
             DriveSubsystem.drive(
-                AimingCalc.getArcDriveSpeeds(
-                    DriveSubsystem.getPose(),
-                    x(), // controller X → tangential movement along arc
-                    DriveSubsystem.getCurrentSpeeds(), // current velocity for rotation feedforward
-                    // y() intentionally omitted — arc system controls radial position
+                ChassisSpeeds(
+                    x() *
+                            Constants.DriveConstants.MAX_METERS_PER_SECOND,
+                    y() *
+                            Constants.DriveConstants.MAX_METERS_PER_SECOND,
+                    AimingCalc.getAimingAngleChange(
+                        DriveSubsystem.getPose(),
+                        DriveSubsystem.getCurrentSpeeds().vxMetersPerSecond,
+                        DriveSubsystem.getCurrentSpeeds().vyMetersPerSecond
+                    ),
                 ),
                 fieldRelative = true,
             )
+
         }
+//        } else {
+//            DriveSubsystem.drive(
+//                AimingCalc.getArcDriveSpeeds(
+//                    DriveSubsystem.getPose(),
+//                    x(), // controller X → tangential movement along arc
+//                    DriveSubsystem.getCurrentSpeeds(), // current velocity for rotation feedforward
+//                    // y() intentionally omitted — arc system controls radial position
+//                ),
+//                fieldRelative = true,
+//            )
+//        }
     }
 
     override fun end(interrupted: Boolean) {

@@ -7,38 +7,38 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds
 import edu.wpi.first.wpilibj2.command.Command
 import frc.robot.Constants
 import frc.robot.subsystems.DriveSubsystem
-import kotlin.math.min
 
-class NorthCommand(
+
+class DriveSetPointCommand(
     private val x: () -> Double,
     private val y: () -> Double,
+    private val setAngle: () -> Double
 ) : Command() {
 
     init {
         addRequirements(DriveSubsystem)
     }
-// Do angle optimization (south) and scalable tuning based on max speed
+    // Do angle optimization (south) and scalable tuning based on max speed
     override fun execute() {
         super.execute()
         // take current rotation in radians and make a new PID Controller
         val curpose = DriveSubsystem.getPose().rotation.radians
-        val tuning = 0.0005 * Constants.DriveConstants.MAX_ANGULAR_SPEED
-        val controller = PIDController(tuning, 0.0, 2 * tuning)
-        val dir = when {
-            (curpose > Math.PI/2)  -> Math.PI
-            (curpose < -Math.PI/2) -> -Math.PI
-            else -> 0.0
-        }
+        val controller = PIDController(0.005, 0.0, 0.01)
+//        val dir = when {
+//            (curpose > Math.PI/2)  -> Math.PI
+//            (curpose < -Math.PI/2) -> -Math.PI
+//            else -> 0.0
+//        }
 
         // set PID deadzones and angle wrapping
-        controller.setTolerance(Rotation2d.fromDegrees(5.0).radians)
+        controller.setTolerance(Rotation2d.fromDegrees(10.0).radians)
         controller.enableContinuousInput(-Math.PI, Math.PI)
 
 
         // calculate rotational speed using PID controller, making sure max speed is respected
         val rotSpeed =
             clamp(
-                controller.calculate(curpose, dir),
+                controller.calculate(curpose, 0.0),
                 -1.0,
                 1.0,
             ) * Constants.DriveConstants.MAX_ANGULAR_SPEED

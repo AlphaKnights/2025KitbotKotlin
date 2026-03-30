@@ -74,7 +74,7 @@ object AimingCalc {
         var distanceX: Double = AimingConstants.RED_HUB_X - x
         var distanceY: Double = AimingConstants.RED_HUB_Y - y
 
-        // (-dx/dt(-rx)+dy/dt(-ry))/(hx-rx)^2
+        // (-dx/dt(-rx) + dy/dt(-ry)) / (hx-rx)^2
         var termOne: Double = (vx - vy) / (distanceX.pow(2))
 
         // 1/(1+((hy-ry)/(hx-rx))^2)
@@ -90,7 +90,7 @@ object AimingCalc {
 
         return angularDistance * AimingConstants.MAX_SPEED + sign(x) * termOne * termTwo
     }
-
+//claude starts here beware
     // Returns true when targeting red hub, false for blue.
     // Reads DriverStation at runtime; falls back to the constant if DS hasn't set it.
     private fun isRedAlliance(): Boolean {
