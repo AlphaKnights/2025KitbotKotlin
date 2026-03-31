@@ -11,21 +11,25 @@ import edu.wpi.first.math.geometry.Pose2d
 
 
 class DriveSetPointCommand(
-    private val setX: Double,
-    private val setY: Double,
-    private val setAngle: Double
+    private val X: () ->  Double,
+    private val Y: () -> Double,
+    private val Angle: () -> Double
 ) : Command() {
 
     init {
         addRequirements(DriveSubsystem)
     }
+    val setX = X()
+    val setY = Y()
+    val setAngle = Angle()
+
     // Do angle optimization (south) and scalable tuning based on max speed
     override fun execute() {
         super.execute()
         // take current rotation in radians and make a new PID Controller
         val curpose = DriveSubsystem.getPose()
         val rotateController = PIDController(0.005, 0.0, 0.01)
-        val driveController = PIDController(0.1, 0.0, 0.005)
+        val driveController = PIDController(0.5, 0.01, 0.01)
 //        val dir = when {
 //            (curpose > Math.PI/2)  -> Math.PI
 //            (curpose < -Math.PI/2) -> -Math.PI
@@ -67,12 +71,22 @@ class DriveSetPointCommand(
                 driveSpeedY,
                 rotSpeed,
             ),
-            fieldRelative = true,
+            fieldRelative = false,
         )
     }
 
     override fun isFinished(): Boolean {
-        return DriveSubsystem.getPose().equals(Pose2d(setX,setY, Rotation2d.fromRadians(setAngle)))
+        val curpose = DriveSubsystem.getPose()
+        return if (
+            curpose.x > setX - 0.05 &&
+            curpose.x < setX + 0.05 &&
+            curpose.y > setY - 0.05 &&
+            curpose.y < setY + 0.05
+//            curpose.rotation.radians > setAngle + 0.05 &&
+//            curpose.rotation.radians < setAngle - 0.05
+        ) {
+            true
+        } else false
     }
 
 }

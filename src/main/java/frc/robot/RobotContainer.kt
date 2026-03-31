@@ -114,9 +114,9 @@ object RobotContainer {
         joystickController
             .driveToArc().onTrue(
                 DriveSetPointCommand(
-                    DriveToArcPoseGenerator.generatePath().x,
-                    DriveToArcPoseGenerator.generatePath().y,
-                    DriveToArcPoseGenerator.generatePath().rotation.radians
+                    { DriveToArcPoseGenerator.generatePath().x } ,
+                    { DriveToArcPoseGenerator.generatePath().y },
+                    { DriveToArcPoseGenerator.generatePath().rotation.radians }
                 )
             )
 

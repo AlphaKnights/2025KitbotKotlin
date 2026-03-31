@@ -279,7 +279,7 @@ object Constants {
     }
 
     object AimingConstants {
-        const val DISTANCE = 0.5
+        const val DISTANCE = 2.0
         const val GOOD_DISTANCE_TOLERANCE = 0.5
         const val MIDDLING_DISTANCE_TOLERANCE = 1.0
 

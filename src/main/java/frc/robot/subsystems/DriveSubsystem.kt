@@ -126,8 +126,9 @@ object DriveSubsystem : SubsystemBase() {
             ),
         )
         //println(gyro.rotation2d)
-        println(getPose())
+        //println(getPose())
         //println(AutoBuilder.isPathfindingConfigured())
+        println(DriveToArcPoseGenerator.generatePath())
     }
 
 

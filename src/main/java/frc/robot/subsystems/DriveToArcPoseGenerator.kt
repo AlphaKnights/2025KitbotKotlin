@@ -18,8 +18,8 @@ object DriveToArcPoseGenerator {
         val distanceHubX = curpose.translation.x - AimingConstants.BLUE_HUB_X // distance between robot and hub
         val distanceHubY = curpose.translation.y - AimingConstants.BLUE_HUB_Y
         val scalar = AimingConstants.DISTANCE / sqrt(distanceHubX.pow(2.0)+distanceHubY.pow(2.0))// creates a scalar to find a position at the right distance and direction from the hub (hub relative)
-        val targetX = AimingConstants.BLUE_HUB_X + (distanceHubX * scalar) // finds the field relative position of the scaled vector
-        val targetY = AimingConstants.BLUE_HUB_Y + (distanceHubY * scalar)
+        val targetX = curpose.translation.x + (distanceHubX * scalar) - distanceHubX // finds the field relative position of the scaled vector
+        val targetY = curpose.translation.y + (distanceHubY * scalar) - distanceHubY
 
         return Pose2d(Translation2d(targetX,targetY), curpose.rotation)
 
