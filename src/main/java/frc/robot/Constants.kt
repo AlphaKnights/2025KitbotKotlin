@@ -35,19 +35,23 @@ object Constants {
 
         const val ELEVATOR_LVL_1_BUTTON = 1
         const val ELEVATOR_LVL_2_BUTTON = 2
-        const val ELEVATOR_LVL_3_BUTTON = 3
-        const val ELEVATOR_LVL_4_BUTTON = 4
+        //const val ELEVATOR_LVL_3_BUTTON = 3
+        //const val ELEVATOR_LVL_4_BUTTON = 4
 
         const val INTAKE_BUTTON = 6
         const val DELIVERY_BUTTON = 8
         const val NORTH_BUTTON = 9
         const val AIMING_BUTTON = 1
         const val ARC_BUTTON = 8
+
+        const val LEFT_SLIDE_BUTTON = 3
+        const val RIGHT_SLIDE_BUTTON = 4
     }
 
     object DriveConstants {
         const val MAX_METERS_PER_SECOND = 2.0
         const val MAX_ANGULAR_SPEED = 10.0
+        const val MAX_SLIDING_SPEED_PERCENTAGE = 0.5
 
         val PATH_CONSTRAINTS =
             PathConstraints(

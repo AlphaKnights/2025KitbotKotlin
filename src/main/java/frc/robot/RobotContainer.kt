@@ -18,6 +18,7 @@ import frc.robot.commands.coralmanipulator.LaunchCommand
 import frc.robot.subsystems.DriveSubsystem
 import frc.robot.subsystems.DriveToArcPoseGenerator
 import frc.robot.subsystems.LimelightSubsystem
+import frc.robot.subsystems.ArcSlidingCalc
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -117,6 +118,26 @@ object RobotContainer {
         joystickController
             .driveToArc().whileTrue(
                 PathfindToPoseCommand(DriveToArcPoseGenerator.generatePath())
+            )
+
+        joystickController
+            .slideLeft().whileTrue(
+                DriveCommand(
+                    {ArcSlidingCalc.getXChange(Constants.DriveConstants.MAX_METERS_PER_SECOND*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
+                    {ArcSlidingCalc.getYChange(Constants.DriveConstants.MAX_METERS_PER_SECOND*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
+                    {0.0},
+                    {false}
+                )
+            )
+
+        joystickController
+            .slideRight().whileTrue(
+                DriveCommand(
+                    {ArcSlidingCalc.getXChange(-Constants.DriveConstants.MAX_METERS_PER_SECOND*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
+                    {ArcSlidingCalc.getYChange(Constants.DriveConstants.MAX_METERS_PER_SECOND*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
+                    {0.0},
+                    {false}
+                )
             )
 
 //        configureElevatorBindings()
