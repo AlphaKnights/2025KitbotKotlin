@@ -13,7 +13,7 @@ import kotlin.math.pow
 object DriveToArcPoseGenerator {
     fun generatePath(): Pose2d {
         val curpose = DriveSubsystem.getPose()
-
+//
         //val hubPos = Translation2d(AimingConstants.BLUE_HUB_X, AimingConstants.BLUE_HUB_Y)
         val distanceHubX = curpose.translation.x - AimingConstants.BLUE_HUB_X // distance between robot and hub
         val distanceHubY = curpose.translation.y - AimingConstants.BLUE_HUB_Y

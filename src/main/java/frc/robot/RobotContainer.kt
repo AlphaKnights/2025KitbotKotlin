@@ -7,10 +7,7 @@ import com.pathplanner.lib.auto.NamedCommands
 import com.pathplanner.lib.commands.PathPlannerAuto
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick
-import frc.robot.commands.DriveCommand
-import frc.robot.commands.NorthCommand
-import frc.robot.commands.PathfindToPoseCommand
-import frc.robot.commands.ResetHeadingCommand
+import frc.robot.commands.*
 import frc.robot.commands.autoalign.AutoAlignAutoCommand
 import frc.robot.commands.autoalign.AutoAlignManualCommand
 import frc.robot.commands.coralmanipulator.IntakeCommand
@@ -115,8 +112,12 @@ object RobotContainer {
             )
 
         joystickController
-            .driveToArc().whileTrue(
-                PathfindToPoseCommand(DriveToArcPoseGenerator.generatePath())
+            .driveToArc().onTrue(
+                DriveSetPointCommand(
+                    DriveToArcPoseGenerator.generatePath().x,
+                    DriveToArcPoseGenerator.generatePath().y,
+                    DriveToArcPoseGenerator.generatePath().rotation.radians
+                )
             )
 
 //        configureElevatorBindings()
@@ -198,7 +199,7 @@ object RobotContainer {
      */
     fun getAutonomousCommand(): Command {
 
-        return PathPlannerAuto("Expo-Spin")
+        return PathPlannerAuto("test")
     }
 
 
