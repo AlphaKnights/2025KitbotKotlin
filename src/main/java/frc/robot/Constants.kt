@@ -50,7 +50,7 @@ object Constants {
 
     object DriveConstants {
         const val MAX_METERS_PER_SECOND = 2.0
-        const val MAX_ANGULAR_SPEED = 10.0
+        const val MAX_ANGULAR_SPEED = 2.0
         const val MAX_SLIDING_SPEED_PERCENTAGE = 0.5
 
         val PATH_CONSTRAINTS =

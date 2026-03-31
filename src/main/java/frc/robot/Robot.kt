@@ -3,6 +3,8 @@
  */
 package frc.robot
 
+import com.pathplanner.lib.pathfinding.LocalADStar
+import com.pathplanner.lib.pathfinding.Pathfinding
 import edu.wpi.first.hal.FRCNetComm.tInstances
 import edu.wpi.first.hal.FRCNetComm.tResourceType
 import edu.wpi.first.hal.HAL
@@ -37,6 +39,7 @@ object Robot : TimedRobot() {
         // This work can also be done in the inherited `robotInit()` method. But as of the 2025 season the
         // `robotInit` method's Javadoc encourages using the constructor and the official templates
         // moved initialization code out `robotInit` and into the constructor. We follow suit in Kotlin.
+
 
         // Report the use of the Kotlin Language for "FRC Usage Report" statistics.
         // Please retain this line so that Kotlin's growing use by teams is seen by FRC/WPI.

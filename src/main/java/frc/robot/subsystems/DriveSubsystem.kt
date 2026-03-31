@@ -127,6 +127,7 @@ object DriveSubsystem : SubsystemBase() {
         )
         //println(gyro.rotation2d)
         println(getPose())
+        //println(AutoBuilder.isPathfindingConfigured())
     }
 
 
