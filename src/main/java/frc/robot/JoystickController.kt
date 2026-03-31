@@ -67,4 +67,15 @@ class JoystickController :
             Constants.OperatorConstants.ARC_BUTTON
         )
 
+    fun slideLeft(): Trigger =
+        JoystickButton(
+            this,
+            Constants.OperatorConstants.LEFT_SLIDE_BUTTON
+        )
+
+    fun slideRight(): Trigger =
+        JoystickButton(
+            this,
+            Constants.OperatorConstants.RIGHT_SLIDE_BUTTON
+        )
 }
