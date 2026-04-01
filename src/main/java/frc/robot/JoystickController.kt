@@ -49,7 +49,7 @@ class JoystickController :
             Constants.OperatorConstants.ALIGN_LEFT_BUTTON,
         )
 
-    fun alignR(): Trigger =
+    /*fun alignR(): Trigger =
         JoystickButton(
             this,
             Constants.OperatorConstants.ALIGN_RIGHT_BUTTON,
@@ -59,6 +59,12 @@ class JoystickController :
         JoystickButton(
             this,
             Constants.OperatorConstants.NORTH_BUTTON
+        )*/
+
+    fun resetOdometry(): Trigger =
+        JoystickButton(
+            this,
+            Constants.OperatorConstants.RESET_ODOMETERY_BUTTON
         )
 
     fun driveToArc(): Trigger =

@@ -27,7 +27,7 @@ object Constants {
         const val RESET_HEADING_BUTTON = 11
 
         const val ALIGN_LEFT_BUTTON = 5
-        const val ALIGN_RIGHT_BUTTON = 7
+        //const val ALIGN_RIGHT_BUTTON = 7
 
         const val BUTTON_BOARD_PORT = 2
         const val ELEVATOR_UP_BUTTON = 8
@@ -40,18 +40,19 @@ object Constants {
 
         const val INTAKE_BUTTON = 6
         const val DELIVERY_BUTTON = 8
-        const val NORTH_BUTTON = 9
+        //const val NORTH_BUTTON = 9
+        const val RESET_ODOMETERY_BUTTON = 2
         const val AIMING_BUTTON = 1
         const val ARC_BUTTON = 8
 
-        const val LEFT_SLIDE_BUTTON = 3
-        const val RIGHT_SLIDE_BUTTON = 4
+        const val LEFT_SLIDE_BUTTON = 7
+        const val RIGHT_SLIDE_BUTTON = 9
     }
 
     object DriveConstants {
         const val MAX_METERS_PER_SECOND = 2.0
         const val MAX_ANGULAR_SPEED = 2.0
-        const val MAX_SLIDING_SPEED_PERCENTAGE = 0.5
+        const val MAX_SLIDING_SPEED_PERCENTAGE = 1.0
 
         val PATH_CONSTRAINTS =
             PathConstraints(
@@ -115,17 +116,17 @@ object Constants {
         val FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET: Rotation2d = // CAN ID 12
             Rotation2d
                 .fromDegrees(
-                    180.0
+                    0.0
                 )
         val BACK_LEFT_CHASSIS_ANGULAR_OFFSET: Rotation2d = // CAN ID 14
             Rotation2d
                 .fromDegrees(
-                    0.0,
+                    180.0,
                 )
         val BACK_RIGHT_CHASSIS_ANGULAR_OFFSET: Rotation2d = // CAN ID 22
             Rotation2d
                 .fromDegrees(
-                    0.0,
+                    180.0,
                 )
 
         const val FRONT_LEFT_DRIVING_ID = 2
@@ -283,7 +284,7 @@ object Constants {
     }
 
     object AimingConstants {
-        const val DISTANCE = 2.0
+        const val DISTANCE = 1.0
         const val GOOD_DISTANCE_TOLERANCE = 0.5
         const val MIDDLING_DISTANCE_TOLERANCE = 1.0
 
@@ -292,7 +293,7 @@ object Constants {
         // Blue hub: robot approaches from y > BLUE_HUB_Y
         const val RED_HUB_X = 0.5
         const val RED_HUB_Y = 0.5
-        const val BLUE_HUB_X = 1.0
+        const val BLUE_HUB_X = 0.0
         const val BLUE_HUB_Y = 0.0 // placeholder — team must tune
 
         // Valid shooting-arc sector, in degrees, measured from hub center.

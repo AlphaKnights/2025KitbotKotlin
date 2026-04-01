@@ -6,6 +6,7 @@ package frc.robot
 import com.pathplanner.lib.auto.NamedCommands
 import com.pathplanner.lib.commands.PathPlannerAuto
 import edu.wpi.first.wpilibj2.command.Command
+import edu.wpi.first.wpilibj2.command.InstantCommand
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick
 import frc.robot.commands.*
 import frc.robot.commands.autoalign.AutoAlignAutoCommand
@@ -97,19 +98,24 @@ object RobotContainer {
                 ),
             )
 
-        joystickController
+        /*joystickController
             .alignR().whileTrue(
                 AutoAlignManualCommand(
                     Constants.AlignDirection.RIGHT,
                 ),
-            )
+            )*/
 
-        joystickController
+        /*joystickController
             .north().whileTrue(
                 NorthCommand(
                     x = { joystickController.x() },
                     y = { joystickController.y() },
                 )
+            )*/
+
+        joystickController.resetOdometry()
+            .whileTrue(
+                ResetOdometry()
             )
 
         joystickController
@@ -117,16 +123,16 @@ object RobotContainer {
                 DriveSetPointCommand(
                     { DriveToArcPoseGenerator.generatePath().x } ,
                     { DriveToArcPoseGenerator.generatePath().y },
-                    { DriveToArcPoseGenerator.generatePath().rotation.radians }
+                    { -DriveToArcPoseGenerator.generatePath().rotation.radians }
                 )
             )
 
         joystickController
             .slideLeft().whileTrue(
                 DriveCommand(
-                    {ArcSlidingCalc.getXChange(Constants.DriveConstants.MAX_METERS_PER_SECOND*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
-                    {ArcSlidingCalc.getYChange(Constants.DriveConstants.MAX_METERS_PER_SECOND*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
-                    {0.0},
+                    {ArcSlidingCalc.getXChange(Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
+                    {ArcSlidingCalc.getYChange(Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
+                    {Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE},
                     {false}
                 )
             )
@@ -134,10 +140,10 @@ object RobotContainer {
         joystickController
             .slideRight().whileTrue(
                 DriveCommand(
-                    {ArcSlidingCalc.getXChange(-Constants.DriveConstants.MAX_METERS_PER_SECOND*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
-                    {ArcSlidingCalc.getYChange(Constants.DriveConstants.MAX_METERS_PER_SECOND*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
-                    {0.0},
-                    {false}
+                    {ArcSlidingCalc.getXChange(-Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
+                    {ArcSlidingCalc.getYChange(-Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
+                    {-Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE},
+                    {true}
                 )
             )
 

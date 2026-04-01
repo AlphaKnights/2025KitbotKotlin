@@ -126,9 +126,8 @@ object DriveSubsystem : SubsystemBase() {
             ),
         )
         //println(gyro.rotation2d)
-        //println(getPose())
-        //println(AutoBuilder.isPathfindingConfigured())
-        println(DriveToArcPoseGenerator.generatePath())
+        println("odometry = ${getPose()}")
+        println("Arc Pose = ${DriveToArcPoseGenerator.generatePath()}")
     }
 
 
