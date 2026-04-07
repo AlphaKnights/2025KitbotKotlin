@@ -52,7 +52,7 @@ object Constants {
     object DriveConstants {
         const val MAX_METERS_PER_SECOND = 2.0
         const val MAX_ANGULAR_SPEED = 2.0
-        const val MAX_SLIDING_SPEED_PERCENTAGE = 1.0
+        const val MAX_SLIDING_SPEED_PERCENTAGE = 0.5
 
         val PATH_CONSTRAINTS =
             PathConstraints(
@@ -293,7 +293,7 @@ object Constants {
         // Blue hub: robot approaches from y > BLUE_HUB_Y
         const val RED_HUB_X = 0.5
         const val RED_HUB_Y = 0.5
-        const val BLUE_HUB_X = 0.0
+        const val BLUE_HUB_X = 1.0
         const val BLUE_HUB_Y = 0.0 // placeholder — team must tune
 
         // Valid shooting-arc sector, in degrees, measured from hub center.
