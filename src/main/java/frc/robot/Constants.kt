@@ -116,7 +116,7 @@ object Constants {
         val FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET: Rotation2d = // CAN ID 12
             Rotation2d
                 .fromDegrees(
-                    0.0
+                    180.0
                 )
         val BACK_LEFT_CHASSIS_ANGULAR_OFFSET: Rotation2d = // CAN ID 14
             Rotation2d

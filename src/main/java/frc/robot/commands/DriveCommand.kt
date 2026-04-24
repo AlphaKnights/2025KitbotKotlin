@@ -14,6 +14,7 @@ class DriveCommand(
     private val y: () -> Double,
     private val rot: () -> Double,
     private val autoAngle: () -> Boolean,
+    private val fieldRel: Boolean = true
 ) : Command() {
     init {
         addRequirements(DriveSubsystem)
@@ -32,7 +33,7 @@ class DriveCommand(
                     rot() *
                             Constants.DriveConstants.MAX_ANGULAR_SPEED,
                 ),
-                fieldRelative = true,
+                fieldRelative = fieldRel,
             )
         } else {
             DriveSubsystem.drive(
@@ -47,7 +48,7 @@ class DriveCommand(
                         DriveSubsystem.getCurrentSpeeds().vyMetersPerSecond
                     ),
                 ),
-                fieldRelative = true,
+                fieldRelative = fieldRel,
             )
 
         }

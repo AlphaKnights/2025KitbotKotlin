@@ -125,6 +125,9 @@ object DriveSubsystem : SubsystemBase() {
                 rearRight.getPosition(),
             ),
         )
+
+        resetOdometry(LimelightSubsystem.getPose()?.toPose2d() ?: getPose())
+        println(getPose())
         //println(gyro.rotation2d)
         println("odometry = ${getPose()}")
         println("Arc Pose = ${DriveToArcPoseGenerator.generatePath()}")
