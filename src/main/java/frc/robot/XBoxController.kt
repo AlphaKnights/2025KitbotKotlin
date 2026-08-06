@@ -1,0 +1,53 @@
+package frc.robot
+
+import edu.wpi.first.math.MathUtil.applyDeadband
+import edu.wpi.first.wpilibj.XboxController
+import edu.wpi.first.wpilibj2.command.button.Trigger
+
+class XBoxController : XboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT) {
+    fun x(): Double {
+        return (-applyDeadband(
+            getRawAxis(5),      //right y
+            Constants.OperatorConstants.DRIVE_DEADBAND
+        ) * speedScale()
+                )
+    }
+
+    fun y(): Double {
+        return (-applyDeadband(
+            getRawAxis(4),    //right x
+            Constants.OperatorConstants.DRIVE_DEADBAND
+        ) * speedScale()
+                )
+    }
+
+    fun rot(): Double {
+        return (-applyDeadband(
+            getRawAxis(0),   //left x
+            Constants.OperatorConstants.DRIVE_DEADBAND
+        ) * speedScale()
+                )
+    }
+    fun speedScale(): Double {
+        return if (getRawButton(6)) { // right bumper
+            0.2
+        } else 1.0
+    //((-getRightTriggerAxis()+1)/2)
+    }
+
+
+    fun heading() : Trigger {
+        return Trigger { yButton }
+    }
+    fun alignL() : Trigger {
+        return Trigger { xButton }
+    }
+    fun alignR() : Trigger {
+        return Trigger { bButton }
+    }
+
+
+
+
+
+}

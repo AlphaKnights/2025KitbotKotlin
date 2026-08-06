@@ -1,11 +1,11 @@
 plugins {
     id "java"
     id "org.jetbrains.kotlin.jvm" version "2.1.0"
-    id "edu.wpi.first.GradleRIO" version "2025.3.2"
+    id "edu.wpi.first.GradleRIO" version "2026.2.1"
     id "idea"
-    id "org.jlleitschuh.gradle.ktlint" version "12.2.0"
-    id "com.diffplug.spotless" version "7.0.3"
-    id "io.gitlab.arturbosch.detekt" version "1.23.8"
+//    id "org.jlleitschuh.gradle.ktlint" version "12.2.0"
+//    id "com.diffplug.spotless" version "7.0.3"
+//    id "io.gitlab.arturbosch.detekt" version "1.23.8"
 }
 
 def javaVersion = JavaVersion.VERSION_17
@@ -138,17 +138,17 @@ idea {
         excludeDirs+=file(".vscode" )
     }
 }
-
-spotless {
-    kotlin {
-        target "src/**/*.kt"
-        ktlint()  // Use ktlint for formatting
-        trimTrailingWhitespace()
-        endWithNewline()
-        licenseHeader(
-                "/*\n" +
-                        " * (C) 2025 Galvaknights\n" +
-                        " */\n"
-        )
-    }
-}
+//
+//spotless {
+//    kotlin {
+//        target "src/**/*.kt"
+//        ktlint()  // Use ktlint for formatting
+//        trimTrailingWhitespace()
+//        endWithNewline()
+//        licenseHeader(
+//                "/*\n" +
+//                        " * (C) 2025 Galvaknights\n" +
+//                        " */\n"
+//        )
+//    }
+//}
