@@ -11,6 +11,8 @@ import com.revrobotics.spark.config.SparkMaxConfig
 import edu.wpi.first.wpilibj.Ultrasonic
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 import frc.robot.Constants
+import com.revrobotics.ResetMode
+import com.revrobotics.PersistMode
 
 object CoralManipulatorSubsystem : SubsystemBase() {
     private val rangeFinder =
@@ -35,8 +37,8 @@ object CoralManipulatorSubsystem : SubsystemBase() {
 
         launchMotor.configure(
             launchMotorConfig,
-            SparkBase.ResetMode.kResetSafeParameters,
-            SparkBase.PersistMode.kPersistParameters,
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters,
         )
     }
 

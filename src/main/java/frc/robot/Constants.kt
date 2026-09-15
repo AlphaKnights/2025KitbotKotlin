@@ -10,22 +10,24 @@ package frc.robot
  * `const` definitions. Other constant types should use `val` definitions.
  */
 
+import com.pathplanner.lib.path.PathConstraints
 import com.revrobotics.spark.config.SparkBaseConfig
 import edu.wpi.first.math.geometry.Rotation2d
 import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.util.Units
+import kotlin.math.PI
 
 @Suppress("MagicNumber", "SpreadOperator")
 object Constants {
     object OperatorConstants {
-        const val DRIVER_CONTROLLER_PORT = 1
-        const val DRIVE_DEADBAND = 0.4
+        const val DRIVER_CONTROLLER_PORT = 0
+        const val DRIVE_DEADBAND = 0.2
 
         const val RESET_HEADING_BUTTON = 11
 
         const val ALIGN_LEFT_BUTTON = 5
-        const val ALIGN_RIGHT_BUTTON = 7
+        //const val ALIGN_RIGHT_BUTTON = 7
 
         const val BUTTON_BOARD_PORT = 2
         const val ELEVATOR_UP_BUTTON = 8
@@ -33,19 +35,35 @@ object Constants {
 
         const val ELEVATOR_LVL_1_BUTTON = 1
         const val ELEVATOR_LVL_2_BUTTON = 2
-        const val ELEVATOR_LVL_3_BUTTON = 3
-        const val ELEVATOR_LVL_4_BUTTON = 4
+        //const val ELEVATOR_LVL_3_BUTTON = 3
+        //const val ELEVATOR_LVL_4_BUTTON = 4
 
         const val INTAKE_BUTTON = 6
-        const val DELIVERY_BUTTON = 9
+        const val DELIVERY_BUTTON = 8
+        //const val NORTH_BUTTON = 9
+        const val RESET_ODOMETERY_BUTTON = 2
+        const val AIMING_BUTTON = 1
+        const val ARC_BUTTON = 8
+
+        const val LEFT_SLIDE_BUTTON = 7
+        const val RIGHT_SLIDE_BUTTON = 9
     }
 
     object DriveConstants {
-        const val MAX_METERS_PER_SECOND = 15
-        const val MAX_ANGULAR_SPEED = 20
+        const val MAX_METERS_PER_SECOND = 1.0
+        const val MAX_ANGULAR_SPEED = 2.0
+        const val MAX_SLIDING_SPEED_PERCENTAGE = 0.5
 
-        private val TRACK_WIDTH = Units.inchesToMeters(26.5)
-        private val WHEEL_BASE = Units.inchesToMeters(26.5)
+        val PATH_CONSTRAINTS =
+            PathConstraints(
+                MAX_METERS_PER_SECOND,
+                10.0,
+                MAX_ANGULAR_SPEED,
+                4 * Math.PI,
+            )
+
+        private val TRACK_WIDTH = Units.inchesToMeters(27.0)
+        private val WHEEL_BASE = Units.inchesToMeters(27.0)
 
         private val MODULE_POSITIONS =
             arrayOf(
@@ -90,61 +108,56 @@ object Constants {
 
         val DRIVE_KINEMATICS =
             SwerveDriveKinematics(*MODULE_POSITIONS)
-
-        val FRONT_LEFT_CHASSIS_ANGULAR_OFFSET: Rotation2d =
+        val FRONT_LEFT_CHASSIS_ANGULAR_OFFSET: Rotation2d = // CAN ID 1
             Rotation2d
-                .fromRotations(
-                    -0.764892578125,
+                .fromDegrees(
+                    180.0,
                 )
-        val FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET: Rotation2d =
+        val FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET: Rotation2d = // CAN ID 12
             Rotation2d
-                .fromRotations(
-                    0.75,
+                .fromDegrees(
+                    180.0
                 )
-        val BACK_LEFT_CHASSIS_ANGULAR_OFFSET: Rotation2d =
+        val BACK_LEFT_CHASSIS_ANGULAR_OFFSET: Rotation2d = // CAN ID 14
             Rotation2d
-                .fromRotations(
-                    0.079833984375,
+                .fromDegrees(
+                    180.0,
                 )
-        val BACK_RIGHT_CHASSIS_ANGULAR_OFFSET: Rotation2d =
+        val BACK_RIGHT_CHASSIS_ANGULAR_OFFSET: Rotation2d = // CAN ID 22
             Rotation2d
-                .fromRotations(
-                    0.367919921875,
+                .fromDegrees(
+                    180.0,
                 )
 
-        const val FRONT_LEFT_DRIVING_ID = 5
-        const val REAR_LEFT_DRIVING_ID = 7
-        const val FRONT_RIGHT_DRIVING_ID = 4
-        const val REAR_RIGHT_DRIVING_ID = 1
+        const val FRONT_LEFT_DRIVING_ID = 2
+        const val REAR_LEFT_DRIVING_ID = 5
+        const val FRONT_RIGHT_DRIVING_ID = 3
+        const val REAR_RIGHT_DRIVING_ID = 4
 
-        const val FRONT_LEFT_TURNING_ID = 6
-        const val REAR_LEFT_TURNING_ID = 8
-        const val FRONT_RIGHT_TURNING_ID = 3
-        const val REAR_RIGHT_TURNING_ID = 2
+        const val FRONT_LEFT_TURNING_ID = 1
+        const val REAR_LEFT_TURNING_ID = 14
+        const val FRONT_RIGHT_TURNING_ID = 12
+        const val REAR_RIGHT_TURNING_ID = 22
 
-        const val FRONT_LEFT_CANCODER_ID = 3
-        const val REAR_LEFT_CANCODER_ID = 4
-        const val FRONT_RIGHT_CANCODER_ID = 2
-        const val REAR_RIGHT_CANCODER_ID = 1
+        //const val FRONT_LEFT_CANCODER_ID = 3
+        //const val REAR_LEFT_CANCODER_ID = 4
+        //const val FRONT_RIGHT_CANCODER_ID = 2
+        //const val REAR_RIGHT_CANCODER_ID = 1
     }
 
     object ModuleConstants {
-        const val DRIVE_RATIO = 17.326202353
+        const val kDrivingMotorPinionTeeth: Int = 14
 
-        const val DRIVING_P = 0.8
-        const val DRIVING_I = 0.0
-        const val DRIVING_D = 0.0
-        const val DRIVING_FF = 1.0
-        const val DRIVING_V = 0.3
-        const val DRIVING_A = 1.5
+        // Calculations required for driving motor conversion factors and feed forward
+        val kDrivingMotorFreeSpeedRps: Double = 5676.0 / 60
+        const val kWheelDiameterMeters: Double = 0.0762
+        const val kWheelCircumferenceMeters: Double = kWheelDiameterMeters * Math.PI
+        // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
+        // teeth on the bevel pinion
+        const val kDrivingMotorReduction: Double = (45.0 * 22) / (kDrivingMotorPinionTeeth * 15)
 
-        const val TURNING_P = 40.0
-        const val TURNING_I = 0.0
-        const val TURNING_D = 0.0
-        const val TURNING_FF = 0.0
-
-        const val DRIVING_MOTOR_CURRENT_LIMIT = 40.0
-        const val TURNING_MOTOR_CURRENT_LIMIT = 40.0
+        val kDriveWheelFreeSpeedRps: Double = ((kDrivingMotorFreeSpeedRps * kWheelCircumferenceMeters)
+                / kDrivingMotorReduction)
     }
 
     object ElevatorConstants {
@@ -269,4 +282,38 @@ object Constants {
         const val ROTATION_I = 0.0
         const val ROTATION_D = 0.0
     }
+
+    object AimingConstants {
+        const val DISTANCE = 1.0
+        const val GOOD_DISTANCE_TOLERANCE = 0.5
+        const val MIDDLING_DISTANCE_TOLERANCE = 1.0
+
+        // Hub field positions (meters). Set to real field measurements before competition.
+        // Red hub: robot approaches from y < RED_HUB_Y
+        // Blue hub: robot approaches from y > BLUE_HUB_Y
+        const val RED_HUB_X = 0.5
+        const val RED_HUB_Y = 0.5
+        const val BLUE_HUB_X = 1.0
+        const val BLUE_HUB_Y = 0.0 // placeholder — team must tune
+
+        // Valid shooting-arc sector, in degrees, measured from hub center.
+        //   0° = +X on field,  90° = +Y,  180° = -X,  270° = -Y (toward driver station)
+        // These values apply for red alliance (robot below hub, y < RED_HUB_Y).
+        // For blue alliance the sector is mirrored vertically — team must tune.
+        const val MIN_ANGLE_DEGREES = 0.0
+        const val MAX_ANGLE_DEGREES = 180.0
+
+        // Fallback when DriverStation hasn't reported an alliance yet (e.g. practice mode).
+        // true = red alliance, false = blue alliance.
+        const val DEFAULT_TO_RED_ALLIANCE = true
+
+        const val MAX_SPEED = 1.0
+        const val MAX_ANGULAR_SPEED = 1.0
+        const val SLOW_DISTANCE = 1.0
+        const val MIN_SPEED = 0.2
+
+        const val DIST_DEADZONE = 0.1 //m
+        const val ANGLE_DEADZONE = 1.0 //degrees
+    }
+
 }
