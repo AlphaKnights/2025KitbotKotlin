@@ -10,6 +10,7 @@ package frc.robot
  * `const` definitions. Other constant types should use `val` definitions.
  */
 
+import com.ctre.phoenix6.CANBus
 import com.pathplanner.lib.path.PathConstraints
 import com.revrobotics.spark.config.SparkBaseConfig
 import edu.wpi.first.math.geometry.Rotation2d
@@ -243,6 +244,18 @@ object Constants {
 
         /** The echo pin of the ultrasonic sensor corresponding to the SIG DIO pin */
         const val ECHO_CHANNEL = 0
+    }
+
+    object ClimbConstants {
+        // every motor measurement is probably in rotations
+        val CANBUS = CANBus("didy")
+        const val MOTOR_ID = 67
+        const val SPEED = 0.1 // between 0.0 and 1.0
+        const val LEVEL_ONE_POSITION = 1.0
+        const val UPPER_LIMIT = 10.0
+        const val LOWER_LIMIT = 0.0
+        const val DEADZONE = 0.1
+        const val SUPPLY_CURRENT_LIMIT = 120.0
     }
 
     object LaunchConstants {
