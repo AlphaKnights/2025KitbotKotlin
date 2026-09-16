@@ -15,8 +15,6 @@ object ClimbSubsystem: SubsystemBase() {
 
     private val motor = TalonFX(67, CANBus("didy"))
 
-    var isInPosition: Boolean = motor.closedLoopError.valueAsDouble == 0.1
-
     init {
         val config = TalonFXConfiguration().apply {
             Slot0.apply {
@@ -60,5 +58,7 @@ object ClimbSubsystem: SubsystemBase() {
     fun stop() {
         motor.stopMotor()
     }
+
+    fun isInPosition(): Boolean = motor.closedLoopError.valueAsDouble == 0.1
 
 }
