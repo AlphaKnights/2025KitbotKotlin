@@ -15,31 +15,73 @@ class JoystickController :
     ) {
     fun x(): Double =
         (
-            -applyDeadband(
-                getRawAxis(1),
-                Constants.OperatorConstants.DRIVE_DEADBAND,
-            ) * (-getRawAxis(3) + 1) / 2
-        )
+                -applyDeadband(
+                    getRawAxis(1),
+                    Constants.OperatorConstants.DRIVE_DEADBAND,
+                ) * (-getRawAxis(3) + 1) / 2
+                )
 
     fun y(): Double =
         (
-            -applyDeadband(
-                getRawAxis(0),
-                Constants.OperatorConstants.DRIVE_DEADBAND,
-            ) * (-getRawAxis(3) + 1) / 2
-        )
+                -applyDeadband(
+                    getRawAxis(0),
+                    Constants.OperatorConstants.DRIVE_DEADBAND,
+                ) * (-getRawAxis(3) + 1) / 2
+                )
 
     fun rot(): Double =
         (
-            -applyDeadband(
-                getRawAxis(2),
-                Constants.OperatorConstants.DRIVE_DEADBAND,
-            ) * (-getRawAxis(3) + 1) / 2
-        )
+                -applyDeadband(
+                    getRawAxis(2),
+                    Constants.OperatorConstants.DRIVE_DEADBAND,
+                ) * (-getRawAxis(3) + 1) / 2
+                )
 
     fun heading(): Trigger =
         JoystickButton(
             this,
             Constants.OperatorConstants.RESET_HEADING_BUTTON,
+        )
+
+    fun alignL(): Trigger =
+        JoystickButton(
+            this,
+            Constants.OperatorConstants.ALIGN_LEFT_BUTTON,
+        )
+
+    /*fun alignR(): Trigger =
+        JoystickButton(
+            this,
+            Constants.OperatorConstants.ALIGN_RIGHT_BUTTON,
+        )
+
+    fun north(): Trigger =
+        JoystickButton(
+            this,
+            Constants.OperatorConstants.NORTH_BUTTON
+        )*/
+
+    fun resetOdometry(): Trigger =
+        JoystickButton(
+            this,
+            Constants.OperatorConstants.RESET_ODOMETERY_BUTTON
+        )
+
+    fun driveToArc(): Trigger =
+        JoystickButton(
+            this,
+            Constants.OperatorConstants.ARC_BUTTON
+        )
+
+    fun slideLeft(): Trigger =
+        JoystickButton(
+            this,
+            Constants.OperatorConstants.LEFT_SLIDE_BUTTON
+        )
+
+    fun slideRight(): Trigger =
+        JoystickButton(
+            this,
+            Constants.OperatorConstants.RIGHT_SLIDE_BUTTON
         )
 }
