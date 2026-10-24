@@ -14,6 +14,7 @@ import com.pathplanner.lib.path.PathConstraints
 import com.revrobotics.spark.config.SparkBaseConfig
 import edu.wpi.first.math.geometry.Rotation2d
 import edu.wpi.first.math.geometry.Translation2d
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.util.Units
 import kotlin.math.PI
@@ -107,7 +108,7 @@ object Constants {
             )
 
         val DRIVE_KINEMATICS =
-            SwerveDriveKinematics(*MODULE_POSITIONS)
+            DifferentialDriveKinematics(TRACK_WIDTH)
         val FRONT_LEFT_CHASSIS_ANGULAR_OFFSET: Rotation2d = // CAN ID 1
             Rotation2d
                 .fromDegrees(
@@ -129,15 +130,15 @@ object Constants {
                     180.0,
                 )
 
-        const val FRONT_LEFT_DRIVING_ID = 2
-        const val REAR_LEFT_DRIVING_ID = 5
-        const val FRONT_RIGHT_DRIVING_ID = 3
-        const val REAR_RIGHT_DRIVING_ID = 4
+        const val FRONT_LEFT_DRIVING_ID = 3
+        const val REAR_LEFT_DRIVING_ID = 2
+        const val FRONT_RIGHT_DRIVING_ID = 4
+        const val REAR_RIGHT_DRIVING_ID = 5
 
-        const val FRONT_LEFT_TURNING_ID = 1
-        const val REAR_LEFT_TURNING_ID = 14
-        const val FRONT_RIGHT_TURNING_ID = 12
-        const val REAR_RIGHT_TURNING_ID = 22
+        const val FRONT_LEFT_TURNING_ID = 30
+        const val REAR_LEFT_TURNING_ID = 22
+        const val FRONT_RIGHT_TURNING_ID = 31
+        const val REAR_RIGHT_TURNING_ID = 1
 
         //const val FRONT_LEFT_CANCODER_ID = 3
         //const val REAR_LEFT_CANCODER_ID = 4

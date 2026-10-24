@@ -9,7 +9,7 @@ class XBoxController : XboxController(Constants.OperatorConstants.DRIVER_CONTROL
         return (-applyDeadband(
             getRawAxis(5),      //right y
             Constants.OperatorConstants.DRIVE_DEADBAND
-        ) * speedScale()
+        ) * 2 - 1
                 )
     }
 
@@ -17,7 +17,7 @@ class XBoxController : XboxController(Constants.OperatorConstants.DRIVER_CONTROL
         return (-applyDeadband(
             getRawAxis(4),    //right x
             Constants.OperatorConstants.DRIVE_DEADBAND
-        ) * speedScale()
+        ) * 2 - 1
                 )
     }
 

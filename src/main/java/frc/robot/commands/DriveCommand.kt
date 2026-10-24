@@ -10,11 +10,8 @@ import frc.robot.subsystems.AimingCalc
 import frc.robot.subsystems.DriveSubsystem
 
 class DriveCommand(
-    private val x: () -> Double,
-    private val y: () -> Double,
-    private val rot: () -> Double,
-    private val autoAngle: () -> Boolean,
-    private val fieldRel: Boolean = true
+    private val left: () -> Double,
+    private val right: () -> Double,
 ) : Command() {
     init {
         addRequirements(DriveSubsystem)
@@ -22,57 +19,13 @@ class DriveCommand(
 
     override fun execute() {
         super.execute()
+        println("DRIVING AT left = $left, right = $right")
 
-        if (!autoAngle()) {
-            DriveSubsystem.drive(
-                ChassisSpeeds(
-                    x() *
-                            Constants.DriveConstants.MAX_METERS_PER_SECOND,
-                    y() *
-                            Constants.DriveConstants.MAX_METERS_PER_SECOND,
-                    rot() *
-                            Constants.DriveConstants.MAX_ANGULAR_SPEED,
-                ),
-                fieldRelative = fieldRel,
-            )
-        } else {
-            DriveSubsystem.drive(
-                ChassisSpeeds(
-                    x() *
-                            Constants.DriveConstants.MAX_METERS_PER_SECOND,
-                    y() *
-                            Constants.DriveConstants.MAX_METERS_PER_SECOND,
-                    AimingCalc.getAimingAngleChange(
-                        DriveSubsystem.getPose(),
-                        DriveSubsystem.getCurrentSpeeds().vxMetersPerSecond,
-                        DriveSubsystem.getCurrentSpeeds().vyMetersPerSecond
-                    ),
-                ),
-                fieldRelative = fieldRel,
-            )
+        DriveSubsystem.differentialDrivetrain.tankDrive(left(), right())
 
-        }
-//        } else {
-//            DriveSubsystem.drive(
-//                AimingCalc.getArcDriveSpeeds(
-//                    DriveSubsystem.getPose(),
-//                    x(), // controller X → tangential movement along arc
-//                    DriveSubsystem.getCurrentSpeeds(), // current velocity for rotation feedforward
-//                    // y() intentionally omitted — arc system controls radial position
-//                ),
-//                fieldRelative = true,
-//            )
-//        }
     }
 
     override fun end(interrupted: Boolean) {
-        DriveSubsystem.drive(
-            ChassisSpeeds(
-                0.0,
-                0.0,
-                0.0,
-            ),
-            fieldRelative = false,
-        )
+        DriveSubsystem.differentialDrivetrain.tankDrive(0.0, 0.0)
     }
 }

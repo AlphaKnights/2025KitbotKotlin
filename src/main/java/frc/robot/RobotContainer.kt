@@ -3,20 +3,11 @@
  */
 package frc.robot
 
-import com.pathplanner.lib.auto.NamedCommands
 import com.pathplanner.lib.commands.PathPlannerAuto
 import edu.wpi.first.wpilibj2.command.Command
-import edu.wpi.first.wpilibj2.command.InstantCommand
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick
 import frc.robot.commands.*
-import frc.robot.commands.autoalign.AutoAlignAutoCommand
-import frc.robot.commands.autoalign.AutoAlignManualCommand
-import frc.robot.commands.coralmanipulator.IntakeCommand
-import frc.robot.commands.coralmanipulator.LaunchCommand
 import frc.robot.subsystems.DriveSubsystem
-import frc.robot.subsystems.DriveToArcPoseGenerator
-import frc.robot.subsystems.LimelightSubsystem
-import frc.robot.subsystems.ArcSlidingCalc
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -76,12 +67,13 @@ object RobotContainer {
     private fun configureBindings() {
         // Drive control
         DriveSubsystem.defaultCommand =
-            DriveCommand(
-                x = { joystickController.x() },
-                y = { joystickController.y() },
-                rot = { joystickController.rot() },
-                autoAngle = { joystickController.getRawButton(Constants.OperatorConstants.AIMING_BUTTON) }
-            )
+            DriveCommand(left = {joystickController.x()}, right = {joystickController.y()})
+//            DriveCommand(
+//                x = { joystickController.x() },
+//                y = { joystickController.y() },
+//                rot = { joystickController.rot() },
+//                autoAngle = { joystickController.getRawButton(Constants.OperatorConstants.AIMING_BUTTON) }
+//            )
 
         // Reset heading
         joystickController
@@ -90,13 +82,13 @@ object RobotContainer {
                 ResetHeadingCommand(),
             )
 
-        // Auto Align
-        joystickController
-            .alignL().whileTrue(
-                AutoAlignManualCommand(
-                    Constants.AlignDirection.LEFT,
-                ),
-            )
+//        // Auto Align
+//        joystickController
+//            .alignL().whileTrue(
+//                AutoAlignManualCommand(
+//                    Constants.AlignDirection.LEFT,
+//                ),
+//            )
 
         /*joystickController
             .alignR().whileTrue(
@@ -118,34 +110,34 @@ object RobotContainer {
                 ResetOdometry()
             )
 
-        joystickController
-            .driveToArc().onTrue(
-                DriveSetPointCommand(
-                    { DriveToArcPoseGenerator.generatePath().x } ,
-                    { DriveToArcPoseGenerator.generatePath().y },
-                    { -DriveToArcPoseGenerator.generatePath().rotation.radians }
-                )
-            )
+//        joystickController
+//            .driveToArc().onTrue(
+//                DriveSetPointCommand(
+//                    { DriveToArcPoseGenerator.generatePath().x } ,
+//                    { DriveToArcPoseGenerator.generatePath().y },
+//                    { -DriveToArcPoseGenerator.generatePath().rotation.radians }
+//                )
+//            )
 
-        joystickController
-            .slideLeft().whileTrue(
-                DriveCommand(
-                    {ArcSlidingCalc.getXChange(Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
-                    {ArcSlidingCalc.getYChange(Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
-                    {Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE},
-                    {false}
-                )
-            )
-
-        joystickController
-            .slideRight().whileTrue(
-                DriveCommand(
-                    {ArcSlidingCalc.getXChange(-Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
-                    {ArcSlidingCalc.getYChange(-Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
-                    {-Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE},
-                    {false}
-                )
-            )
+//        joystickController
+//            .slideLeft().whileTrue(
+//                DriveCommand(
+//                    {ArcSlidingCalc.getXChange(Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
+//                    {ArcSlidingCalc.getYChange(Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
+//                    {Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE},
+//                    {false}
+//                )
+//            )
+//
+//        joystickController
+//            .slideRight().whileTrue(
+//                DriveCommand(
+//                    {ArcSlidingCalc.getXChange(-Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
+//                    {ArcSlidingCalc.getYChange(-Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE)},
+//                    {-Constants.DriveConstants.MAX_ANGULAR_SPEED*Constants.DriveConstants.MAX_SLIDING_SPEED_PERCENTAGE},
+//                    {false}
+//                )
+//            )
 
 //        configureElevatorBindings()
 //        configureCoralManipulatorBindings()
